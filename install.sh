@@ -1,6 +1,10 @@
 #!/bin/bash
-apt -qq update
-apt -qq install python3 git 
+sudo apt -qq update
+sudo apt -qq -y install python3 git mc screen 7zip unzip net-tools pwgen lsof
+cd
+echo 'alias ls="ls --color"' >> ~/.bashrc
+source ~/.bashrc
+
 git clone https://github.com/twimpse/linux-conf.git
 cd linux-conf
 ./linux-init-setup.py
