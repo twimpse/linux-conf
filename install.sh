@@ -1,6 +1,6 @@
 #!/bin/bash
 sudo apt -qq update
-sudo apt -qq -y install python3 git mc screen 7zip unzip net-tools pwgen lsof sudo
+sudo apt -qq -y install python3 git mc screen 7zip unzip net-tools pwgen lsof sudo fail2ban iptables
 cd
 echo 'alias ls="ls --color"' >> ~/.bashrc
 source ~/.bashrc
