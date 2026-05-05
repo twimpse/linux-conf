@@ -29,8 +29,6 @@ else
 sudo apt -qq install python3 git mc screen 7zip unzip net-tools pwgen lsof sudo fail2ban iptables rkhunter
 fi
 
-#echo 'alias ls="ls --color"' >> ~/.bashrc
-
 if [ IS_GIT == 0 ] ; then 
 git clone https://github.com/twimpse/linux-conf.git
 cd linux-conf
