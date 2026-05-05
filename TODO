@@ -6,3 +6,6 @@
 * Packages
   harden-servers / harden-client
 
+* Cron permissions
+
+* Fix default umask
