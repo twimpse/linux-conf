@@ -5,6 +5,11 @@ cd
 echo 'alias ls="ls --color"' >> ~/.bashrc
 source ~/.bashrc
 
+mkdir -p ~/.ssh
+chmod go-rwx ~/.ssh
+cat conf.d/authorized_keys >> ~/.ssh/authorized_keys
+chmod go-rwx ~./ssh/authorized_keys
+
 git clone https://github.com/twimpse/linux-conf.git
 cd linux-conf
 ./linux-init-setup.py
