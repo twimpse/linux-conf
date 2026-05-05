@@ -4,7 +4,7 @@
   Server / Client
 
 * Packages
-  harden-servers / harden-client
+  harden-runtime
 
 * Cron permissions
 
