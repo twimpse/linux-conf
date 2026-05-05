@@ -3,4 +3,6 @@
 * Harden /etc/fstab
   Server / Client
 
+* Packages
+  harden-servers / harden-client
 
