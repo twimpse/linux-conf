@@ -44,4 +44,8 @@ else
 
 fi
 
+if [ SET_CLEANUP == 1 ] ; then 
 
+  cd ; rm -rf ${SET_PWD}
+
+fi
