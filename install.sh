@@ -1,7 +1,8 @@
 #!/bin/bash
 SET_YES=0
 SET_CLEANUP=0
-
+SET_PWD=`pwd`
+IS_GIT=0
 while getopts "hyC" arg; do
   case $arg in
     h)
@@ -17,6 +18,10 @@ while getopts "hyC" arg; do
   esac
 done
 
+if [ -d ${SET_PWD}/.git ] ; then 
+  IS_GIT=1
+fi
+
 sudo apt -qq update
 if [ SET_YES = 1 ] ; then
 sudo apt -qq -y install python3 git mc screen 7zip unzip net-tools pwgen lsof sudo fail2ban iptables rkhunter
@@ -24,9 +29,14 @@ else
 sudo apt -qq install python3 git mc screen 7zip unzip net-tools pwgen lsof sudo fail2ban iptables rkhunter
 fi
 
-echo 'alias ls="ls --color"' >> ~/.bashrc
+#echo 'alias ls="ls --color"' >> ~/.bashrc
 
+if [ IS_GIT == 0 ] ; then 
 git clone https://github.com/twimpse/linux-conf.git
 cd linux-conf
+else
 ./linux-init-setup.py
+
+fi
+
 
