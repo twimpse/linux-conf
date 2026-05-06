@@ -88,7 +88,8 @@ def install_packages(package_type):
     # Server-specific packages
     server_packages = [
         "openssh-server",
-        "bmon"
+        "bmon",
+        "iptables-persistent"
     ]
     
     # Client-specific packages
