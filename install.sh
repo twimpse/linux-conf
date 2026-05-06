@@ -25,11 +25,11 @@ fi
 sudo apt -qq update
 if [ SET_YES = 1 ] ; then
 
-  sudo apt -qqq -y install python3 git mc screen 7zip unzip net-tools pwgen lsof sudo fail2ban iptables rkhunter
+  sudo apt -qqq -y install python3 git mc screen 7zip unzip net-tools pwgen lsof sudo fail2ban iptables rkhunter wget curl
 
 else
 
-  sudo apt -qqq install python3 git mc screen 7zip unzip net-tools pwgen lsof sudo fail2ban iptables rkhunter
+  sudo apt -qqq install python3 git mc screen 7zip unzip net-tools pwgen lsof sudo fail2ban iptables rkhunter wget curl
 
 fi
 
@@ -37,10 +37,20 @@ if [ IS_GIT == 0 ] ; then
 
   git clone https://github.com/twimpse/linux-conf.git
   cd linux-conf
+  ./linux-init-setup.py
 
 else
 
-  ./linux-init-setup.py
+  if [ -f ./linux-init-setup.py ] ; then
+
+    ./linux-init-setup.py
+
+  else
+
+    echo "Error: File not found."
+    exit 1
+
+  fi
 
 fi
 
