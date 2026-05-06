@@ -89,6 +89,7 @@ def install_packages(package_type):
     server_packages = [
         "openssh-server",
         "bmon",
+        "rkhunter",
         "iptables-persistent"
     ]
     
