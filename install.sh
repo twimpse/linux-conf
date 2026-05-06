@@ -23,6 +23,7 @@ if [ -d ${SET_PWD}/.git ] ; then
 fi
 
 sudo apt -qq update
+
 if [ SET_YES = 1 ] ; then
 
   sudo apt -qqq -y install python3 git mc screen 7zip unzip net-tools pwgen lsof sudo fail2ban iptables rkhunter wget curl
@@ -32,26 +33,6 @@ else
   sudo apt -qqq install python3 git mc screen 7zip unzip net-tools pwgen lsof sudo fail2ban iptables rkhunter wget curl
 
 fi
-
-echo "Setting basic firewall (iptables) rules. Open 22,80,443 ports"
-sudo iptables-restore < conf.d/iptables-rules.v4
-sudo ip6tables-restore < conf.d/iptables-rules.v6
-
-echo "Using hardened sshd configuration"
-sudo mv /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
-sudo cp conf.d/sshd_config /etc/ssh/sshd_config
-sudo systemctl reload sshd
-
-if [ -f /etc/security/limits.d/base.conf ] ; then
-
-  echo "Error: limit file exists"
-
-else
-
-  sudo cp conf.d/limits.conf /etc/security/limits.d/base.conf
-
-fi
-
 if [ IS_GIT == 0 ] ; then 
 
   git clone https://github.com/twimpse/linux-conf.git
@@ -70,6 +51,26 @@ else
     exit 1
 
   fi
+
+fi
+
+
+echo "Setting basic firewall (iptables) rules. Open 22,80,443 ports"
+sudo iptables-restore < conf.d/iptables-rules.v4
+sudo ip6tables-restore < conf.d/iptables-rules.v6
+
+echo "Using hardened sshd configuration"
+sudo mv /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+sudo cp conf.d/sshd_config /etc/ssh/sshd_config
+sudo systemctl reload sshd
+
+if [ -f /etc/security/limits.d/base.conf ] ; then
+
+  echo "Error: limit file exists"
+
+else
+
+  sudo cp conf.d/limits.conf /etc/security/limits.d/base.conf
 
 fi
 
