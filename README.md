@@ -14,3 +14,6 @@ linux system. And it might not be changes that you want or need.
 
 Run the script at your own risk. But the script can be used as a reference to see
 which things may need adjusting on a vanilla system. 
+
+## Recomended
+You are probably looking for something like [ubuntu hardening](https://github.com/konstruktoid/hardening)
