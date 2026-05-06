@@ -33,8 +33,14 @@ else
 
 fi
 
+echo "Setting basic firewall (iptables) rules. Open 22,80,443 ports"
 sudo iptables-restore < conf.d/iptables-rules.v4
 sudo ip6tables-restore < conf.d/iptables-rules.v6
+
+echo "Using hardened sshd configuration"
+sudo mv /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+sudo cp conf.d/sshd_config /etc/ssh/sshd_config
+sudo systemctl reload sshd
 
 if [ -f /etc/security/limits.d/base.conf ] ; then
 
@@ -72,3 +78,5 @@ if [ SET_CLEANUP == 1 ] ; then
   cd ; rm -rf ${SET_PWD}
 
 fi
+
+touch /var/run/reboot-required
