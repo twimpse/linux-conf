@@ -71,7 +71,7 @@ fi
 
 if [ -f /etc/security/limits.d/base.conf ] ; then
 
-  echo "Error: limit file exists"
+  echo "Warn: limit.conf file exists"
 
 else
 
