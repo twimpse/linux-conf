@@ -22,8 +22,10 @@ if [ -d ${SET_PWD}/.git ] ; then
   IS_GIT=1
 fi
 
+echo "Updating package list"
 sudo apt -qq update
 
+echo "Installing first round of packages"
 if [ SET_YES = 1 ] ; then
 
   sudo apt -qqq -y install python3 git mc screen 7zip unzip net-tools pwgen lsof sudo fail2ban iptables wget curl
