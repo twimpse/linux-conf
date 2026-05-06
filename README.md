@@ -17,3 +17,5 @@ which things may need adjusting on a vanilla system.
 
 ## Recomended
 You are probably looking for something like [ubuntu hardening](https://github.com/konstruktoid/hardening)
+
+Or [sysctl hardening](https://www.cyberciti.biz/faq/linux-kernel-etcsysctl-conf-security-hardening/)
