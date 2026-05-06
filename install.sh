@@ -36,6 +36,16 @@ fi
 sudo iptables-restore < conf.d/iptables-rules.v4
 sudo ip6tables-restore < conf.d/iptables-rules.v6
 
+if [ -f /etc/security/limits.d/base.conf ] ; then
+
+  echo "Error: limit file exists"
+
+else
+
+  sudo cp conf.d/limits.conf /etc/security/limits.d/base.conf
+
+fi
+
 if [ IS_GIT == 0 ] ; then 
 
   git clone https://github.com/twimpse/linux-conf.git
