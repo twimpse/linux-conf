@@ -1,0 +1,111 @@
+# /etc/ssh/sshd_config - Hardened Configuration
+# Only compatible with OpenSSH 7.5+ (preferably 8.x or 9.x)
+
+# Protocol - only SSHv2 (v1 is obsolete/insecure)
+Protocol 2
+
+# Listening: use a non-standard port? (Optional, security through obscurity)
+# Port 22
+# Uncomment and change if you want to reduce automated scans.
+# Port 2222
+
+# Limit listen address (if server has multiple interfaces)
+# ListenAddress 0.0.0.0
+# ListenAddress ::
+
+# Host Keys - use strong types (ed25519 preferred, RSA >=2048)
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
+
+# Logging
+SyslogFacility AUTH
+LogLevel VERBOSE  # logs fingerprints, key type, failures
+
+# Authentication:
+PermitRootLogin prohibit-password
+
+# Public key authentication (essential)
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+AuthorizedKeysCommand none
+AuthorizedKeysCommandUser nobody
+
+# Password authentication - strongly recommend disabling for hardening
+PasswordAuthentication yes
+ChallengeResponseAuthentication no
+# PermitEmptyPasswords - irrelevant if PasswordAuthentication no
+PermitEmptyPasswords no
+
+# Kerberos/GSSAPI - disable unless needed
+KerberosAuthentication no
+GSSAPIAuthentication no
+
+# Disable host-based authentication (dangerous)
+HostbasedAuthentication no
+IgnoreRhosts yes
+
+# Disable .rhosts (legacy)
+RhostsRSAAuthentication no
+
+# PAM - enable if needed (some distros require it)
+UsePAM yes
+
+# Session settings
+PrintMotd no
+PrintLastLog yes
+X11Forwarding no  # rarely needed, high risk if enabled
+X11DisplayOffset 10
+X11UseLocalhost yes
+
+# Allow agent forwarding only if needed (risk)
+AllowAgentForwarding no
+AllowTcpForwarding no  # disable forwarding unless required for tunnels
+# If you need forwarding, restrict: AllowTcpForwarding local
+
+# GatewayPorts (dangerous for port forwarding)
+GatewayPorts no
+
+# Disable tunneling
+PermitTunnel no
+
+# Disable user environment (prevents ~/.ssh/environment)
+PermitUserEnvironment no
+
+# Compression - disable before auth to mitigate side-channel attacks
+Compression delayed
+
+# Max sessions to prevent resource exhaustion
+MaxSessions 4
+MaxStartups 10:30:100
+
+# Login grace time (seconds)
+LoginGraceTime 30
+
+# Authentication retry limit
+MaxAuthTries 3
+MaxAuthTriesLog 3  # if supported
+
+# Timeout idle sessions
+ClientAliveInterval 300
+ClientAliveCountMax 2
+
+# Ciphers - modern, secure, no CBC, no weak ciphers
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes128-ctr
+
+# MACs (Message Authentication Codes) - avoid MD5, weak HMACs
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256
+
+# Key Exchange algorithms - avoid diffie-hellman-group1-sha1, etc.
+KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group-exchange-sha256
+
+# Logging for each connection (if possible)
+# UseDNS can be slow & privacy risk; disable if not needed
+UseDNS no
+
+# StrictModes checks ownership/permissions of user files/dirs
+StrictModes yes
+
+# Chroot directory (optional, for sftp-only users)
+# Subsystem sftp internal-sftp -f AUTHPRIV -l INFO
+
+# End of hardened configuration
